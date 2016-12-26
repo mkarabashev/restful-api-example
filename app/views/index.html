@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Timestamp MicroService</title>
+  </head>
+  <body>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      Select a file to upload (20mb max):
+      <input type="file" name="checkedFile">
+      <input type="submit" value="upload file">
+    </form>
+
+    <h2 class='center'>Microservice API</h1>
+    <div class='container'>
+      <h3>Add a unix timestamp or the date to the url</h3>
+      <h3>Use now or don't give a parameter to get the current time</h3>
+      <h3>Examples:</h3>
+      <div class='inner-container'>
+        <p class='example'>/api?time</p>
+        <p class='example'>/api?time=now</p>
+        <p class='example'>/api?time=1450137600</p>
+        <p class='example'>/api?time=December%2015,%202015</p>
+      </div>
+      <h3>Outcome:</h3>
+      <div class ='inner-container'>
+        <p class='example'>{"unix":1450137600,"natural":"December 15, 2015"}</p>
+      </div>
+    </div>
+    <div class='container'>
+      <h3>Add whoami to get useragent data</h3>
+      <h3>Examples:</h3>
+      <div class='inner-container'>
+        <p class='example'>/api?whoami</p>
+      </div>
+      <h3>Outcome:</h3>
+      <div class ='inner-container'>
+        <p class='example'>{"ip":"::1","language":"bg,en-US","os":"Windows 10.0"}</p>
+      </div>
+    </div>
+  </body>
+</html>
