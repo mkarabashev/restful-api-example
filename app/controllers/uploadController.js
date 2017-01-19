@@ -2,20 +2,21 @@
 
 const multer = require('multer');
 const fs = require('fs');
+const path = require('path');
+const dir = './tmp';
 
 const upload = multer({
-  dest: __dirname + '/tmp'
+  dest: dir
 });
 
 const fileCheck = (req, res, next) => {
-  const dir = __dirname + '/tmp';
   const fileInfo = {
     file: req.file.originalname,
     size: req.file.size
   };
 
   fs.readdir(dir, (err,files) => {
-    files.forEach(file => fs.unlink(dir + '/' + file, err => err ? console.log(err) : ''));
+    files.forEach(file => fs.unlink(path.join(dir, file), err => err ? console.log(err) : ''));
   });
 
   res.send(fileInfo);
