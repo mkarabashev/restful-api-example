@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 const Url = mongoose.model('Url');
 const encode = require('./base58').encode;
+const address = require('../../../config.js').URL;
 
 module.exports = function (data, callback) {
   const longUrl = data.url;
@@ -12,13 +13,13 @@ module.exports = function (data, callback) {
     if (err) console.error(err);
 
     if (doc) {
-      shortUrl = 'localhost:3000/' + encode(doc._id);
+      shortUrl = `${address}${encode(doc._id)}`;
       callback(null, {longUrl, shortUrl});
     } else {
       const newQuery = Url({url: longUrl});
       newQuery.save(function (error) {
         if (error) console.log(error);
-        shortUrl = 'localhost:3000/' + encode(newQuery._id);
+        shortUrl = `${address}${encode(newQuery._id)}`;
         callback(null, {longUrl, shortUrl});
       });
     }

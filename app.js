@@ -6,14 +6,15 @@ const useragent = require('express-useragent');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { PORT, DB } = require('./config');
+
 
 // initialize express
 const app = express();
 
 // connect to mongoDB
 mongoose.Promise = global.Promise;
-const testURI = 'mongodb://127.0.0.1/test';
-const connect = () => mongoose.connect(process.env.MONGOLAB_URI || testURI);
+const connect = () => mongoose.connect(DB);
 connect();
 
 const db = mongoose.connection;
@@ -26,8 +27,7 @@ fs.readdirSync(__dirname + '/app/model').forEach(file => {
 });
 
 // provide the port
-const port = process.env.PORT || 3000;
-app.listen(3000, () => console.log(`listening on port ${port}`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
 
 // setup the server
 app.engine('html', require('ejs').renderFile);
