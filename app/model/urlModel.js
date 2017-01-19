@@ -12,7 +12,6 @@ const counter = mongoose.model('counter', CounterSchema);
 
 // create a counter if there isn't one
 counter.find({_id: 'url_count'}, function (err, doc) {
-  console.log(doc)
   if (err) console.error(err);
   else if (!doc.length) counter({
     _id: 'url_count',

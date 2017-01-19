@@ -6,7 +6,8 @@ const path = require('path');
 const dir = './tmp';
 
 const upload = multer({
-  dest: dir
+  dest: dir,
+  limits: { fileSize: 5 * Math.pow(10, 6) }
 });
 
 const fileCheck = (req, res, next) => {
