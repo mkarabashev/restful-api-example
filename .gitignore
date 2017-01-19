@@ -1,6 +1,6 @@
 # npm and dist folders
-graphics/ai_files/
 node_modules/
+tmp/
 
 # Windows image file caches
 Thumbs.db
