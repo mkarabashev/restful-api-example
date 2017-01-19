@@ -13,13 +13,13 @@ module.exports = function (data, callback) {
     if (err) console.error(err);
 
     if (doc) {
-      shortUrl = `${address}${encode(doc._id)}`;
+      shortUrl = `${address}/${encode(doc._id)}`;
       callback(null, {longUrl, shortUrl});
     } else {
       const newQuery = Url({url: longUrl});
       newQuery.save(function (error) {
         if (error) console.log(error);
-        shortUrl = `${address}${encode(newQuery._id)}`;
+        shortUrl = `${address}/${encode(newQuery._id)}`;
         callback(null, {longUrl, shortUrl});
       });
     }
