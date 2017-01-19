@@ -21,8 +21,11 @@ urlSchema.pre('save', function (next) {
     {_id: 'url_count'},
     {$inc: { count: 1 }},
     {new: true},
-    (error, counter) => {
-      if (error) return next(error);
+    (err, counter) => {
+      if (error) {
+        console.log(err);
+        return next(err);
+      }
       doc._id = counter.count;
       next();
     });
