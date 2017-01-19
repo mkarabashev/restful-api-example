@@ -9,6 +9,17 @@ const CounterSchema = Schema({
 });
 
 const counter = mongoose.model('counter', CounterSchema);
+
+// create a counter if there isn't one
+counter.find({_id: 'url_count'}, function (err, doc) {
+  console.log(doc)
+  if (err) console.error(err);
+  else if (!doc.length) counter({
+    _id: 'url_count',
+    count: 1000
+  }).save()
+});
+
 // create a schema for our links
 const urlSchema = new Schema({
   _id: {type: Number, index: true},
@@ -22,7 +33,7 @@ urlSchema.pre('save', function (next) {
     {$inc: { count: 1 }},
     {new: true},
     (err, counter) => {
-      if (error) {
+      if (err) {
         console.log(err);
         return next(err);
       }
