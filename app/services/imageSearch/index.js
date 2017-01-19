@@ -4,11 +4,14 @@ const Search = mongoose.model('Search');
 
 const getRecentSearch = (data, callback) => {
   Search.find({}).sort('-searched_at').exec(function (err, docs) {
+    if (err) console.error(err);
+
     const result = docs.slice(0, 10).map(entry => {
       return {
         'query': entry.query,
         'searched_at': entry.searched_at
-      }});
+      };
+    });
     callback(null, result);
   });
 };
@@ -26,9 +29,9 @@ const imgSearch = (data, callback) => {
     headers: {
       'Ocp-Apim-Subscription-Key': 'c7ae4e1caa374b83bec290ec52dc097b'
     }
-  }).then(function(res) {
+  }).then(function (res) {
     return res.json();
-  }).then(function(json) {
+  }).then(function (json) {
     callback(null, json.value);
   });
 };

@@ -12,4 +12,4 @@ module.exports.asyncActions = {
   'url': url,
   'img': img.imgSearch,
   'recent': img.getRecentSearch
-}
+};

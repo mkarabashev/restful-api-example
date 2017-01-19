@@ -15,7 +15,9 @@ const fileCheck = (req, res, next) => {
     size: req.file.size
   };
 
-  fs.readdir(dir, (err,files) => {
+  fs.readdir(dir, (err, files) => {
+    if (err) console.error(err);
+
     files.forEach(file => fs.unlink(path.join(dir, file), err => err ? console.log(err) : ''));
   });
 

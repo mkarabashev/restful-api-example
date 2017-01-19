@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "lint": "eslint app polyfills routes",
+    "lint:fix": "npm run lint -- --fix"
   },
   "author": "Maxim Karabashev",
   "license": "MIT",
@@ -20,6 +23,10 @@
     "node-fetch": "^1.6.3"
   },
   "devDependencies": {
+    "eslint": "^3.13.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
     "nodemon": "^1.10.2"
   }
 }

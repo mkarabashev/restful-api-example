@@ -1,17 +1,17 @@
-'use strict'
+'use strict';
 
-//return an object with the unix timestamp
+// return an object with the unix timestamp
 module.exports = data => {
   let unix = null;
   let natural = null;
   let time = null;
   const query = data.time;
-  
+
   if (query.length === 10 && /\d{10}/.test(query)) time = new Date(query * 1000);
   else if (query.length === 0) time = new Date();
   else time = new Date(query);
 
-  if (time != 'Invalid Date') {
+  if (time !== 'Invalid Date') {
     const locale = 'en-us';
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -20,4 +20,4 @@ module.exports = data => {
   }
 
   return {unix, natural};
-}
+};

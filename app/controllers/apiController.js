@@ -11,10 +11,12 @@ const api = (req, res) => {
   let data = Object.assign({}, req.query);
   data.os = req.useragent.os;
   data.remoteAddress = req.connection.remoteAddress;
-  data.language = req.headers["accept-language"];
+  data.language = req.headers['accept-language'];
   data.proxy = req.headers['x-forwarded-for'];
 
   const final = (err, results) => {
+    if (err) console.error(err);
+
     for (let fn in req.query) {
       if (!req.query.hasOwnProperty(fn) || !queries[fn]) continue;
       answer = Object.assign(answer, {[fn]: queries[fn](data)});
