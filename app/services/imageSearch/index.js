@@ -27,7 +27,7 @@ const imgSearch = (data, callback) => {
   Search({query: data.img}).save();
   fetch(bingUrl, {
     headers: {
-      'Ocp-Apim-Subscription-Key': 'c7ae4e1caa374b83bec290ec52dc097b'
+      'Ocp-Apim-Subscription-Key': process.env.BING_KEY
     }
   }).then(function (res) {
     return res.json();

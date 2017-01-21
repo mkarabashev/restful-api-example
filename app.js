@@ -1,4 +1,5 @@
 'use strict'
+
 require('./polyfills');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -6,15 +7,13 @@ const useragent = require('express-useragent');
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
-const { PORT, DB } = require('./config');
-
 
 // initialize express
 const app = express();
 
 // connect to mongoDB
 mongoose.Promise = global.Promise;
-const connect = () => mongoose.connect(DB);
+const connect = () => mongoose.connect(process.env.MONGODB_URI);
 connect();
 
 const db = mongoose.connection;
@@ -27,7 +26,7 @@ fs.readdirSync(__dirname + '/app/model').forEach(file => {
 });
 
 // provide the port
-app.listen(PORT, () => console.log(`listening on port ${PORT}`));
+app.listen(process.env.PORT, () => console.log(`listening on port ${process.env.PORT}`));
 
 // setup the server
 app.engine('html', require('ejs').renderFile);

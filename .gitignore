@@ -1,6 +1,7 @@
 # npm and dist folders
 node_modules/
 tmp/
+**/*.env
 
 # Windows image file caches
 Thumbs.db

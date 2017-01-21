@@ -13,10 +13,12 @@ const counter = mongoose.model('counter', CounterSchema);
 // create a counter if there isn't one
 counter.find({_id: 'url_count'}, function (err, doc) {
   if (err) console.error(err);
-  else if (!doc.length) counter({
-    _id: 'url_count',
-    count: 1000
-  }).save()
+  else if (!doc.length) {
+    counter({
+      _id: 'url_count',
+      count: 1000
+    }).save();
+  }
 });
 
 // create a schema for our links

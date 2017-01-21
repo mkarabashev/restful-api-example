@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
+    "dev": "nodemon -r dotenv/config app.js",
     "start": "node app.js",
     "lint": "eslint app polyfills routes",
     "lint:fix": "npm run lint -- --fix"
@@ -14,6 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.2",
+    "dotenv": "^4.0.0",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-useragent": "^1.0.4",
