@@ -11,7 +11,9 @@ const onUrl = (req, res) => {
     if (doc) {
       const longUrl = (/^http(s?):\/\//.test(doc.url) ? '' : 'https://') + doc.url;
       res.redirect(longUrl);
-    } else res.send("Url doesn't exsist in the database");
+    } else {
+      res.send({ error: `Url doesn't exsist in the database` });
+    }
   });
 };
 

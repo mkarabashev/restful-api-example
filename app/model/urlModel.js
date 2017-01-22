@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CounterSchema = Schema({
-  _id: {type: String, required: true},
-  count: { type: Number, default: 0 }
+  _id: { type: String, required: true },
+  count: { type: Number, default: 0, required: true }
 });
 
 const counter = mongoose.model('counter', CounterSchema);
@@ -23,16 +23,16 @@ counter.find({_id: 'url_count'}, function (err, doc) {
 
 // create a schema for our links
 const urlSchema = new Schema({
-  _id: {type: Number, index: true},
+  _id: { type: Number, index: true },
   url: String
 });
 
 urlSchema.pre('save', function (next) {
   const doc = this;
   counter.findByIdAndUpdate(
-    {_id: 'url_count'},
-    {$inc: { count: 1 }},
-    {new: true},
+    { _id: 'url_count' },
+    { $inc: { count: 1 } },
+    { new: true },
     (err, counter) => {
       if (err) {
         console.log(err);
