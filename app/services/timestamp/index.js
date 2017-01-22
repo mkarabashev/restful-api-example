@@ -1,4 +1,3 @@
-'use strict';
 
 // return an object with the unix timestamp
 module.exports = data => {

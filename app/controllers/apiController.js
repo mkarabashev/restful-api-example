@@ -1,20 +1,32 @@
-'use strict';
 
 const async = require('async');
 const queries = require('../services').queries;
 const asyncActions = require('../services').asyncActions;
 
+// this code glues together most of the api services
+// except for url redirects and file size checking
 const api = (req, res) => {
-  let answer = {};
-  let actionList = {};
-
   let data = Object.assign({}, req.query);
   data.os = req.useragent.os;
   data.remoteAddress = req.connection.remoteAddress;
   data.language = req.headers['accept-language'];
   data.proxy = req.headers['x-forwarded-for'];
 
+  // do async services (database)
+  const asyncServices = () => {
+    let actionList = {};
+
+    for (let fn in req.query) {
+      if (!req.query.hasOwnProperty(fn) || !asyncActions[fn]) continue;
+      actionList[fn] = asyncActions[fn].bind(null, data);
+    }
+    console.log(actionList)
+    return actionList;
+  };
+
+  // do sync services, combine them with async, then send as json
   const final = (err, results) => {
+    let answer = {};
     if (err) console.error(err);
 
     for (let fn in req.query) {
@@ -29,12 +41,8 @@ const api = (req, res) => {
     res.json(answer);
   };
 
-  for (let fn in req.query) {
-    if (!req.query.hasOwnProperty(fn) || !asyncActions[fn]) continue;
-    actionList[fn] = asyncActions[fn].bind(null, data);
-  }
-
-  async.parallel(actionList, final);
+  // gate; wait for async services to finish before proceeding
+  async.parallel(asyncServices(), final);
 };
 
 module.exports = api;

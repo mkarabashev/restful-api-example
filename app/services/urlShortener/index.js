@@ -1,4 +1,3 @@
-'use strict';
 
 const mongoose = require('mongoose');
 const Url = mongoose.model('Url');
@@ -17,12 +16,10 @@ module.exports = function (data, callback) {
     if (err) return console.error(err);
 
     if (doc) {
-
       // URL already in the DB; use the entry
       shortUrl = `${process.env.URL}/${encode(doc._id)}`;
       callback(null, {longUrl, shortUrl});
     } else {
-
       // new URL; make a new entry
       const newQuery = Url({url: longUrl});
       newQuery.save(function (error) {

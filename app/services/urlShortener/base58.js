@@ -1,4 +1,3 @@
-'use strict';
 
 const BASE = 58;
 const alphabet = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';

@@ -9,6 +9,7 @@
       "sourceType": "module"
     },
     "rules": {
-      "semi": [ 2, "always" ]
+      "semi": [ 1, "always" ],
+      "strict": [ 2, "global" ]
     }
 }

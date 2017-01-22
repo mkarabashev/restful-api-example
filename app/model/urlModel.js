@@ -1,8 +1,8 @@
-'use strict';
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// counter is there to deal with concurrency via findByIdAndUpdate
 const CounterSchema = Schema({
   _id: { type: String, required: true },
   count: { type: Number, default: 0, required: true }
@@ -21,10 +21,9 @@ counter.find({_id: 'url_count'}, function (err, doc) {
   }
 });
 
-// create a schema for our links
 const urlSchema = new Schema({
   _id: { type: Number, index: true },
-  url: String
+  url: { type: String, required: true }
 });
 
 urlSchema.pre('save', function (next) {
