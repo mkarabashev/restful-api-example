@@ -9,12 +9,12 @@ module.exports = function (data, callback) {
   let shortUrl = '';
 
   // check to see if the URL is valid
-  if (typeof longUrl !== 'string' || /.?\..?$/.test(longUrl)) {
-    callback(null, { error: 'invalid URL' });
+  if (typeof longUrl !== 'string' || !/.*?\..*?/.test(longUrl)) {
+    return callback(null, { error: 'invalid URL' });
   }
 
   function onFind (err, doc) {
-    if (err) console.error(err);
+    if (err) return console.error(err);
 
     if (doc) {
 
