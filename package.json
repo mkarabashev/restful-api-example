@@ -1,6 +1,6 @@
 {
   "name": "RESTful-API-services",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "description": "RESTful API service",
   "main": "index.js",
   "scripts": {
