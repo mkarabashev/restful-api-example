@@ -20,6 +20,7 @@ const api = (req, res) => {
       if (!req.query.hasOwnProperty(fn) || !asyncActions[fn]) continue;
       actionList[fn] = asyncActions[fn].bind(null, data);
     }
+
     return actionList;
   };
 
