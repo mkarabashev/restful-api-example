@@ -1,5 +1,5 @@
-
 const async = require('async');
+const empty = require('../utils').empty;
 const queries = require('../services').queries;
 const asyncActions = require('../services').asyncActions;
 
@@ -18,7 +18,7 @@ const api = (req, res) => {
 
     for (let fn in req.query) {
       if (!req.query.hasOwnProperty(fn) || !asyncActions[fn]) continue;
-      actionList[fn] = asyncActions[fn].bind(null, data);
+      actionList[fn] = asyncActions[fn].bind(empty, data);
     }
 
     return actionList;

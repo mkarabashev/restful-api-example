@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r dotenv/config --abort-on-uncaught-exception server.js",
-    "start": "node server.js",
-    "lint": "eslint app polyfills routes",
+    "dev": "nodemon -r dotenv/config --debug server.js",
+    "start": "forever -c \"node -r dotenv/config\" cluster.js",
+    "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-useragent": "^1.0.4",
+    "forever": "^0.15.3",
     "mongodb": "^2.2.11",
     "mongoose": "^4.6.5",
     "multer": "^1.2.0",

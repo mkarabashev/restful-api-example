@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const Url = mongoose.model('Url');
 const encode = require('./base58').encode;
 
+const SITE_URL = process.env.URL || 'localhost:5000';
+
 module.exports = function (data, callback) {
   const longUrl = data.url;
   let shortUrl = '';
@@ -17,14 +19,14 @@ module.exports = function (data, callback) {
 
     if (doc) {
       // URL already in the DB; use the entry
-      shortUrl = `${process.env.URL}/${encode(doc._id)}`;
+      shortUrl = `${SITE_URL}/${encode(doc._id)}`;
       callback(null, {longUrl, shortUrl});
     } else {
       // new URL; make a new entry
       const newQuery = Url({url: longUrl});
       newQuery.save(function (error) {
         if (error) console.log(error);
-        shortUrl = `${process.env.URL}/${encode(newQuery._id)}`;
+        shortUrl = `${SITE_URL}/${encode(newQuery._id)}`;
         callback(null, {longUrl, shortUrl});
       });
     }

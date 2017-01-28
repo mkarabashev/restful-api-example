@@ -1,66 +1,29 @@
-'use strict'
-
-require('./polyfills');
-const express = require('express');
 const mongoose = require('mongoose');
-const cluster = require('cluster');
-const os = require('os');
-const useragent = require('express-useragent');
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
+const app = require('./app');
 
-// add node cluster multithreading when supported (no windows support)
-if (os.platform() !== 'win32' && cluster.isMaster) {
-  const numCores = os.cpus().length;
+const PORT = process.env.PORT || 5000;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1/test';
 
-  console.log(`Master cluster setting up ${numCores} workers`)
-  for (let i = 0; i < numCores; i++) {
-    cluster.fork();
-  }
+// establish server
+const appProcess = app();
 
-  cluster.on(
-    'online',
-    worker => console.log(`Worker ${worker.process.pid} is online`)
-  );
+// connect to mongoDB
+mongoose.Promise = global.Promise;
+const options = {
+  server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } },
+  replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }
+};
 
-  // reconnect if needed
-  cluster.on(
-    'exit',
-    (worker, code, signal) => (
-      console.log(`Worker ${worker.process.pid} died. Code: ${code}, and signal: ${signal} Restarting...`),
-      cluster.fork()
-  ));
+const connect = () => mongoose.connect(MONGODB_URI, options);
+connect();
 
-} else {
-  // initialize express
-  const app = express();
+const db = mongoose.connection;
+db.on('error', console.log);
+db.on('disconnected', connect);
 
-  // connect to mongoDB
-  mongoose.Promise = global.Promise;
-  const connect = () => mongoose.connect(process.env.MONGODB_URI);
-  connect();
-
-  const db = mongoose.connection;
-  db.on('error', console.log);
-  db.on('disconnected', connect);
-
-  // load the schema
-  fs.readdirSync(__dirname + '/app/model').forEach(file => {
-    if (/.js$/.test(file)) require(path.join(__dirname, 'app/model', file));
-  });
-
-  // provide the port
-  app.listen(process.env.PORT, () => console.log(`Process${process.pid} listening on port ${process.env.PORT}`));
-
-  // setup the server
-  app.engine('html', require('ejs').renderFile);
-  app.set('view engine', 'ejs');
-  app.set('json spaces', 2);
-  app.use(useragent.express());
-
-  // provide API
-  app.set('views', path.join(__dirname, 'app/views'));
-  app.use(express.static('./public'));
-  require('./routes')(app);
-}
+// start listening
+db.once('open', function open () {
+  console.log('db connection established');
+  appProcess.listen(PORT, () =>
+    console.log(`Process${process.pid} listening on port ${PORT}`));
+});

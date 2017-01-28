@@ -19,30 +19,32 @@ const getRecentSearch = (data, callback) => {
 
 const imgSearch = (data, callback) => {
   // coerce to string and add to request
+  const bingUrl = 'https://api.cognitive.microsoft.com/bing/v5.0/images';
   const query = String(data.img);
-  const search = 'q=' + query + '&';
-  const offset = 'offset=' + (data.offset > 0 ? data.offset : 0) + '&';
-  const count = 'count=10&';
-  const locale = 'mkt=en-us&';
+  const search = `q=${query}`;
+  const offset = `offset=${data.offset > 0 ? data.offset : 0}`;
+  const count = 'count=10';
+  const locale = 'mkt=en-us';
   const safe = 'safeSearch=Moderate';
-  const bingUrl = 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?' + search + offset + count + locale + safe;
+  const finalUrl = `${bingUrl}/search?${search}&${offset}&${count}&${locale}&${safe}`;
 
   // save the query to DB
-  Search({query: query}).save();
+  Search({query: query}).save(err => err && console.error(
+    `Failed to save to DB with error ${err}`
+  ));
 
   // fetch results from Bing
   Promise.race([
-    fetch(bingUrl, {
+    fetch(finalUrl, {
       headers: {
-        'Ocp-Apim-Subscription-Key': process.env.BING_KEY
+        'Ocp-Apim-Subscription-Key': process.env.BING_KEY || 'fail' // no defaults here
       }
     }),
     timeoutPromise(3000)
-  ]).then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    callback(null, json.value);
-  }).catch(err => {
+  ])
+  .then(res => res.json())
+  .then(json => callback(null, json.value))
+  .catch(err => {
     console.error(err);
     callback(null, { error: err });
   });

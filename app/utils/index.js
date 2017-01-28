@@ -4,3 +4,5 @@ exports.timeoutPromise = time => new Promise(function (resolve, reject) {
     time
   );
 });
+
+exports.empty = Object.create(null);
