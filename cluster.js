@@ -10,8 +10,8 @@ function createWorker () {
   worker.on('message', function masterMsg (message) {
     switch (message.type) {
       case 'error':
-        console.log(`Killing worker ${process.pid} due to an error`);
-        worker.send({ type: 'shutdown', from: 'master' });
+        console.log(`Killing worker ${message.from} due to an error`);
+        worker.disconnect();
         setTimeout(() => worker && worker.kill('SIGKILL'), 5000);
         break;
       default:
@@ -48,10 +48,6 @@ if (os.platform() !== 'win32' && cluster.isMaster) {
   // worker management worker-level
   process.on('message', function workerMsg (message) {
     switch (message.type) {
-      case 'shutdown':
-        console.log(`Worker ${process.pid} shutting down after request from master`);
-        process.exit(0);
-        break;
       default:
         console.log(`Worker ${process.pid} received message ${message.type}`);
     }
