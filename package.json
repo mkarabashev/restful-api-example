@@ -4,7 +4,7 @@
   "description": "RESTful API service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp mocha",
     "dev": "nodemon -r dotenv/config --debug server.js",
     "start": "forever -c \"node -r dotenv/config\" cluster.js",
     "lint": "eslint .",
@@ -29,10 +29,18 @@
     "node-fetch": "^1.6.3"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "eslint": "^3.13.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
-    "nodemon": "^1.10.2"
+    "fetch-mock": "^5.9.0",
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.1",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.10.2",
+    "sinon": "^1.17.7",
+    "wagner": "^0.6.4"
   }
 }

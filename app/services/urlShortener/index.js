@@ -15,7 +15,7 @@ module.exports = function (data, callback) {
   }
 
   function onFind (err, doc) {
-    if (err) return console.error(err);
+    if (err) callback(null, { error: err });
 
     if (doc) {
       // URL already in the DB; use the entry

@@ -5,7 +5,7 @@ const Search = mongoose.model('Search');
 
 const getRecentSearch = (data, callback) => {
   Search.find({}).sort('-searched_at').exec(function (err, docs) {
-    if (err) console.error(err);
+    if (err) return callback(null, { error: err });
 
     const result = docs.slice(0, 10).map(entry => {
       return {

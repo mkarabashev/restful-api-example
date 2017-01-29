@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1/test';
 
 // establish server
-const appProcess = app();
+const server = app();
 
 // connect to mongoDB
 mongoose.Promise = global.Promise;
@@ -24,6 +24,6 @@ db.on('disconnected', connect);
 // start listening
 db.once('open', function open () {
   console.log('db connection established');
-  appProcess.listen(PORT, () =>
+  server.listen(PORT, () =>
     console.log(`Process${process.pid} listening on port ${PORT}`));
 });
