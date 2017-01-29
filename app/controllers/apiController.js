@@ -37,7 +37,6 @@ const api = (req, res) => {
       if (!results.hasOwnProperty(result)) continue;
       answer = Object.assign(answer, {[result]: results[result]});
     }
-
     res.json(answer);
   };
 
