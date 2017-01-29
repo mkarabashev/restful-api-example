@@ -6,7 +6,7 @@ module.exports = data => {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   const query = data.time;
   let unix, natural, time;
-  unix =null;
+  unix = null;
 
   if (query.length && query.length !== 0 && +query === +query) time = new Date(query * 1000);
   else if (query.length === 0) time = currentTime();
@@ -15,8 +15,7 @@ module.exports = data => {
   if (time.toString() !== 'Invalid Date') {
     unix = Math.round(time.getTime() / 1000);
     natural = time.toLocaleString(locale, options);
-  }
-  else natural = time.toString();
+  } else natural = time.toString();
 
   return {unix, natural};
 };

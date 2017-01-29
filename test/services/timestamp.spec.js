@@ -1,16 +1,16 @@
 const expect = require('chai').expect;
 const tk = require('timekeeper');
-let timestamp = require('../../app/services/timestamp');;
+let timestamp = require('../../app/services/timestamp'); ;
 
 describe('(services) timestamp', () => {
-  let defaultOutcome, dateStub, naturalTime, unixTime;
+  let defaultOutcome, naturalTime, unixTime;
 
   before(() => {
     naturalTime = 'December 15, 2015';
     unixTime = 1450130400;
 
     defaultOutcome = { unix: unixTime, natural: naturalTime };
-    tk.freeze(unixTime * 1000)
+    tk.freeze(unixTime * 1000);
   });
 
   after(() => {
