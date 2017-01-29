@@ -7,4 +7,12 @@ const searchSchema = new Schema({
   searched_at: { type: Date, default: currentTime }
 });
 
+searchSchema.static('showRecent', function findByTime () {
+  return this.find({}).sort('-searched_at').limit(10).exec()
+    .then(docs => docs.map(entry => ({
+      query: entry.query,
+      searched_at: entry.searched_at
+    })));
+});
+
 module.exports = mongoose.model('Search', searchSchema);

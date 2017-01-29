@@ -4,17 +4,9 @@ const mongoose = require('mongoose');
 const Search = mongoose.model('Search');
 
 const getRecentSearch = (data, callback) => {
-  Search.find({}).sort('-searched_at').exec(function (err, docs) {
-    if (err) return callback(null, { error: err });
-
-    const result = docs.slice(0, 10).map(entry => {
-      return {
-        'query': entry.query,
-        'searched_at': entry.searched_at
-      };
-    });
-    callback(null, result);
-  });
+  Search.showRecent()
+    .then(docs => callback(null, docs))
+    .catch(err => callback(err));
 };
 
 const imgSearch = (data, callback) => {

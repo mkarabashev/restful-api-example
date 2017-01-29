@@ -6,7 +6,7 @@ describe('(services) encoder', () => {
   it('should give a base58 number on encode', () => {
     expect(encode(0)).to.equal('1');
     expect(encode(58)).to.equal('Z');
-    expect(encode(59)).to.equal('21')
+    expect(encode(59)).to.equal('21');
   });
 
   it('should give a base10 number on decode', () => {
@@ -20,5 +20,5 @@ describe('(services) encoder', () => {
     expect(decode(encode(100))).to.equal(100);
     expect(decode(encode(1000))).to.equal(1000);
     expect(decode(encode(999999))).to.equal(999999);
-  })
+  });
 });
