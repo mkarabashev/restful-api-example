@@ -1,14 +1,14 @@
 
-const BASE = 58;
+const BASE = 59;
 const alphabet = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
 
 module.exports.encode = num => {
   let encoded = '';
-  while (num) {
+  do {
     const remainder = num % BASE;
     num = Math.floor(num / BASE);
     encoded = alphabet[remainder] + encoded;
-  }
+  } while (num);
 
   return encoded;
 };

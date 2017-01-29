@@ -139,7 +139,7 @@ describe('(server) async api services requests', () => {
 
   it('should redirect on /:shortUrl', done => {
     chai.request(URL)
-      .get('/ig')
+      .get('/hY')
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.redirect;

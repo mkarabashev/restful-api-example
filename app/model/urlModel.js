@@ -23,4 +23,4 @@ urlSchema.pre('save', function (next) {
     });
 });
 
-mongoose.model('Url', urlSchema);
+module.exports = mongoose.model('Url', urlSchema);

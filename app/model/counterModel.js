@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 // counter is there to deal with concurrency via findByIdAndUpdate
 const CounterSchema = Schema({
   _id: { type: String, required: true },
-  count: { type: Number, default: 0, required: true }
+  count: { type: Number, required: true }
 });
 
 const Counter = mongoose.model('Counter', CounterSchema);
