@@ -6,9 +6,11 @@ describe('(services) header parser', () => {
 
   before(() => {
     outcome = {
-      ipaddress: '127.0.0.1',
-      languages: 'de, en',
-      os: 'os'
+      whoami: {
+        ipaddress: '127.0.0.1',
+        languages: 'de, en',
+        os: 'os'
+      }
     };
 
     defaultData = {

@@ -19,6 +19,7 @@ describe('(model) Search', () => {
   it('should have a static showRecent that returns recent queries', done => {
     var SearchMock = sinon.mock(Search);
     const expectedDocs = [{ query: 'image', searched_at: 'time' }];
+
     SearchMock
       .expects('find').withArgs({})
       .chain('sort', '-searched_at')
@@ -43,7 +44,8 @@ describe('(model) Search', () => {
       .chain('exec')
       .rejects('error!');
 
-    Search.showRecent().then(res => {}, err => {
+    Search.showRecent().then(err => {
+      SearchMock.verify();
       SearchMock.restore();
       expect(err.toString()).to.equal('Error: error!');
       done();

@@ -17,5 +17,5 @@ module.exports = data => {
     natural = time.toLocaleString(locale, options);
   } else natural = time.toString();
 
-  return {unix, natural};
+  return { time: { unix, natural } };
 };

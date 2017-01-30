@@ -19,4 +19,10 @@ describe('(model) Url', () => {
       done();
     });
   });
+
+  it('should provide a short url on encodedUrl', () => {
+    const shortUrl = new Url({ url: 'url', _id: 59 });
+    const expected = 'localhost:5000/21';
+    expect(shortUrl.encodedUrl).to.equal(expected);
+  });
 });

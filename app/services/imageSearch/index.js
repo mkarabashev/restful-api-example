@@ -1,33 +1,27 @@
-const timeoutPromise = require('./../../utils').timeoutPromise;
 const fetch = require('node-fetch');
 const mongoose = require('mongoose');
 const Search = mongoose.model('Search');
+const timeoutPromise = require('./../../utils').timeoutPromise;
+const makeUrl = require('./../../utils').makeUrl;
 
-const getRecentSearch = (data, callback) => {
+const getRecentSearch = (data) =>
   Search.showRecent()
-    .then(docs => callback(null, docs))
-    .catch(err => callback(err));
-};
+    .then(recent => ({ recent: recent }))
+    .catch(console.error);
 
-const imgSearch = (data, callback) => {
+const imgSearch = (data) => {
   // coerce to string and add to request
-  const bingUrl = 'https://api.cognitive.microsoft.com/bing/v5.0/images';
   const query = String(data.img);
-  const search = `q=${query}`;
-  const offset = `offset=${data.offset > 0 ? data.offset : 0}`;
-  const count = 'count=10';
-  const locale = 'mkt=en-us';
-  const safe = 'safeSearch=Moderate';
-  const finalUrl = `${bingUrl}/search?${search}&${offset}&${count}&${locale}&${safe}`;
+
+  // make sure offset is valid
+  const offset = data.offset > 0 ? offset : 0;
 
   // save the query to DB
-  Search({query: query}).save(err => err && console.error(
-    `Failed to save to DB with error ${err}`
-  ));
+  Search({ query: query }).save().catch(console.error);
 
   // fetch results from Bing
-  Promise.race([
-    fetch(finalUrl, {
+  return Promise.race([
+    fetch(makeUrl(query, offset), {
       headers: {
         'Ocp-Apim-Subscription-Key': process.env.BING_KEY || 'fail' // no defaults here
       }
@@ -35,11 +29,8 @@ const imgSearch = (data, callback) => {
     timeoutPromise(3000)
   ])
   .then(res => res.json())
-  .then(json => callback(null, json.value))
-  .catch(err => {
-    console.error(err);
-    callback(null, { error: err });
-  });
+  .then(json => ({ img: json.value }))
+  .catch(console.error);
 };
 
 module.exports.imgSearch = imgSearch;
