@@ -4,20 +4,20 @@ const Search = mongoose.model('Search');
 const timeoutPromise = require('./../../utils').timeoutPromise;
 const makeUrl = require('./../../utils').makeUrl;
 
-const getRecentSearch = (data) =>
+exports.getRecentSearch = data =>
   Search.showRecent()
     .then(recent => ({ recent: recent }))
     .catch(console.error);
 
-const imgSearch = (data) => {
+exports.imgSave = data =>
+  Search({ query: String(data.img) }).save().catch(console.error);
+
+exports.imgSearch = data => {
   // coerce to string and add to request
   const query = String(data.img);
 
   // make sure offset is valid
   const offset = data.offset > 0 ? offset : 0;
-
-  // save the query to DB
-  Search({ query: query }).save().catch(console.error);
 
   // fetch results from Bing
   return Promise.race([
@@ -32,6 +32,3 @@ const imgSearch = (data) => {
   .then(json => ({ img: json.value }))
   .catch(console.error);
 };
-
-module.exports.imgSearch = imgSearch;
-module.exports.getRecentSearch = getRecentSearch;

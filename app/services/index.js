@@ -4,9 +4,12 @@ const url = require('./urlShortener');
 const img = require('./imageSearch');
 
 module.exports = {
-  'time': timestamp,
-  'whoami': headerParser,
-  'url': url,
-  'img': img.imgSearch,
-  'recent': img.getRecentSearch
+  time: timestamp,
+  whoami: headerParser,
+  url: url,
+  img: data => (
+    img.imgSave(data),
+    img.imgSearch(data)
+  ),
+  recent: img.getRecentSearch
 };

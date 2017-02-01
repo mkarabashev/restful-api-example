@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 const Search = require('../../app/model/searchModel');
 const getRecentSearch = require('../../app/services/imageSearch').getRecentSearch;
-//const imgSearch = require('../../app/services/imageSearch').imgSearch;
+// const imgSearch = require('../../app/services/imageSearch').imgSearch;
 require('sinon-mongoose');
 require('sinon-as-promised');
 

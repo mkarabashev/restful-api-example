@@ -1,8 +1,6 @@
-const services = require('../services');
-
 // this code glues together most of the api services
 // except for url redirects and file size checking
-const api = (req, res) => {
+const api = (req, res, services) => {
   let data = Object.assign({}, req.query);
   data.os = req.useragent.os;
   data.remoteAddress = req.connection.remoteAddress;
