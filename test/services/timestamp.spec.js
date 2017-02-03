@@ -1,5 +1,3 @@
-const expect = require('chai').expect;
-const tk = require('timekeeper');
 let timestamp = require('../../app/services/timestamp'); ;
 
 describe('(services) timestamp', () => {

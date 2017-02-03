@@ -7,9 +7,9 @@ module.exports = {
   time: timestamp,
   whoami: headerParser,
   url: url,
-  img: data => (
-    img.imgSave(data),
-    img.imgSearch(data)
-  ),
+  img: data => {
+    img.imgSave(data);
+    return img.imgSearch(data);
+  },
   recent: img.getRecentSearch
 };

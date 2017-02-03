@@ -1,5 +1,3 @@
-const expect = require('chai').expect;
-const sinon = require('sinon');
 const urlShortener = require('../../app/services/urlShortener');
 const Url = require('../../app/model/urlModel');
 require('sinon-mongoose');

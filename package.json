@@ -4,11 +4,12 @@
   "description": "RESTful API service",
   "main": "index.js",
   "scripts": {
-    "test": "gulp mocha",
-    "dev": "nodemon -r dotenv/config --debug server.js",
-    "start": "forever -c \"node -r dotenv/config\" cluster.js",
     "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "test": "gulp mocha",
+    "test:watch": "gulp watch",
+    "dev": "nodemon -r dotenv/config --debug server.js",
+    "start": "forever -c \"node -r dotenv/config\" cluster.js"
   },
   "repository": {
     "type": "git",

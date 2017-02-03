@@ -4,8 +4,11 @@
     "mocha" : true
   },
   "globals" : {
+    "chai"   : false,
     "expect" : false,
-    "should" : false,
-    "sinon"  : false
+    "sinon"  : false,
+    "tk"     : false,
+    "PORT"   : false,
+    "URL"    : false
   }
 }

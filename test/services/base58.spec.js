@@ -1,4 +1,3 @@
-const expect = require('chai').expect;
 const encode = require('../../app/services/urlShortener/base58').encode;
 const decode = require('../../app/services/urlShortener/base58').decode;
 

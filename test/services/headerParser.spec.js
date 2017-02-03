@@ -1,4 +1,3 @@
-const expect = require('chai').expect;
 const headerParser = require('../../app/services/headerParser');
 
 describe('(services) header parser', () => {

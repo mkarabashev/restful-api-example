@@ -1,4 +1,3 @@
-const expect = require('chai').expect;
 const Url = require('../../app/model/urlModel');
 
 describe('(model) Url', () => {

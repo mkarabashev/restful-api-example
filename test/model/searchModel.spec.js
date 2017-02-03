@@ -1,6 +1,4 @@
-const expect = require('chai').expect;
 const Search = require('../../app/model/searchModel');
-const sinon = require('sinon');
 require('sinon-mongoose');
 require('sinon-as-promised');
 

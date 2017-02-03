@@ -1,9 +1,7 @@
 // integration tests
 // testing framework
 require('dotenv').config();
-const chai = require('chai');
 chai.use(require('chai-http'));
-const expect = chai.expect;
 
 // mongoose
 const mongoose = require('mongoose');
@@ -19,10 +17,6 @@ require('../../app/model/counterModel');
 const Search = mongoose.model('Search');
 const Url = mongoose.model('Url');
 const Counter = mongoose.model('Counter');
-
-// constants
-const PORT = require('../constants').PORT;
-const URL = require('../constants').URL;
 
 describe('(server) async api services requests', () => {
   let server;

@@ -1,4 +1,3 @@
-const expect = require('chai').expect;
 const Counter = require('../../app/model/counterModel');
 
 describe('(model) Counter', () => {

@@ -1,12 +1,5 @@
-const chai = require('chai');
-chai.use(require('chai-http'));
-const expect = chai.expect;
-
-// constants
-const PORT = require('../constants').PORT;
-const URL = require('../constants').URL;
-
 const app = require('../../app');
+chai.use(require('chai-http'));
 
 describe('(server) home', () => {
   let server;
