@@ -1,14 +1,15 @@
 {
-  "extends" : "../.eslintrc",
-  "env"     : {
-    "mocha" : true
+  "extends": "../.eslintrc",
+  "env": {
+    "mocha": true
   },
-  "globals" : {
-    "chai"   : false,
-    "expect" : false,
-    "sinon"  : false,
-    "tk"     : false,
-    "PORT"   : false,
-    "URL"    : false
+  "globals": {
+    "mongoose": false,
+    "chai": false,
+    "expect": false,
+    "sinon": false,
+    "tk": false,
+    "PORT": false,
+    "URL": false
   }
 }

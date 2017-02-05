@@ -1,3 +1,5 @@
+'use strict';
+
 const headerParser = require('../../app/services/headerParser');
 
 describe('(services) header parser', () => {

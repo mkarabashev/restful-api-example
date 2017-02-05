@@ -1,3 +1,5 @@
+'use strict';
+
 if (typeof Object.assign !== 'function') {
   (function () {
     Object.assign = function (target) {

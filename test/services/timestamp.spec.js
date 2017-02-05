@@ -1,3 +1,5 @@
+'use strict';
+
 let timestamp = require('../../app/services/timestamp'); ;
 
 describe('(services) timestamp', () => {

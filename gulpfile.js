@@ -1,16 +1,11 @@
+'use strict';
+
 const gulp = require('gulp');
 const mocha = require('gulp-mocha');
 const gutil = require('gulp-util');
 const eslint = require('gulp-eslint');
 
-gulp.task('mocha', () =>
-  gulp.src(
-    [ './test/test.config.js', 'test/**/*.spec.js' ],
-    { read: false }
-  )
-    .pipe(mocha({ reporter: 'spec' }))
-    .on(`error`, err => gutil.log(`Error: ${err.message}`))
-);
+let task = {};
 
 gulp.task('lint', () =>
   gulp.src([ '**/*.js', '!node_modules/**/*' ])
@@ -19,6 +14,17 @@ gulp.task('lint', () =>
     .pipe(eslint.failOnError())
 );
 
-gulp.task('watch', [ 'lint', 'mocha' ], () =>
-  gulp.watch(['**/*.js'], [ 'lint', 'mocha' ])
+gulp.task('mocha', task.mocha = () =>
+  gulp.src(
+    [ './test/test.config.js', 'test/**/*.spec.js' ],
+    { read: false }
+  )
+    .pipe(mocha({ reporter: 'spec' }))
+    .on(`error`, err => gutil.log(`Error: ${err.message}`))
+);
+
+gulp.task('mocha:lint', [ 'lint' ], task.mocha);
+
+gulp.task('watch', [ 'mocha:lint' ], () =>
+  gulp.watch([ '**/*.js', '!node_modules/**' ], [ 'mocha:lint' ])
 );

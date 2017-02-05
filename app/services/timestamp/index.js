@@ -1,3 +1,5 @@
+'use strict';
+
 const currentTime = require('../../utils/currentTime');
 
 // return an object with the unix timestamp

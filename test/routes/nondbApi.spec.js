@@ -1,3 +1,5 @@
+'use strict';
+
 // Integration tests
 const app = require('../../app');
 chai.use(require('chai-http'));

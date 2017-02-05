@@ -1,11 +1,4 @@
-// integration tests
-// testing framework
-require('dotenv').config();
-chai.use(require('chai-http'));
-
-// mongoose
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+'use strict';
 
 // app
 const app = require('../../app');

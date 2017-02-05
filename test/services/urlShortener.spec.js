@@ -1,11 +1,19 @@
+'use strict';
+
 const urlShortener = require('../../app/services/urlShortener');
 const Url = require('../../app/model/urlModel');
-require('sinon-mongoose');
-require('sinon-as-promised');
 
 describe('(services) url shortener', () => {
-  it('should return a long/short url pair', done => {
-    const UrlMock = sinon.mock(Url);
+  let UrlMock;
+
+  beforeEach(() => UrlMock = sinon.mock(Url));
+
+  afterEach(() => {
+    UrlMock.verify();
+    UrlMock.restore();
+  });
+
+  it('should return a long/short url pair', () => {
     const data = { url: 'www.google.com' };
     const expected = {
       url: {
@@ -21,12 +29,7 @@ describe('(services) url shortener', () => {
       .resolves()
       .resolves('shortUrl');
 
-    urlShortener(data).then(res => {
-      UrlMock.verify();
-      UrlMock.restore();
-      expect(res).to.deep.equal(expected);
-      done();
-    });
+    expect(urlShortener(data)).to.eventually.deep.equal(expected);
   });
 
   it('should return an invalid url statement if url is missing a dot', () => {

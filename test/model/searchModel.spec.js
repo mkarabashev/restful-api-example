@@ -1,21 +1,25 @@
+'use strict';
+
 const Search = require('../../app/model/searchModel');
-require('sinon-mongoose');
-require('sinon-as-promised');
+const modelValidate = require('../utils').modelValidate;
 
 describe('(model) Search', () => {
-  let s;
+  let searchValidate, SearchMock;
 
-  before(() => s = new Search());
+  before(() => searchValidate = modelValidate(new Search()));
 
-  it('should be invalid if query is empty', done => {
-    s.validate(function (err) {
-      expect(err.errors.query).to.exist;
-      done();
-    });
+  beforeEach(() => SearchMock = sinon.mock(Search));
+
+  afterEach(() => {
+    SearchMock.verify();
+    SearchMock.restore();
   });
 
-  it('should have a static showRecent that returns recent queries', done => {
-    var SearchMock = sinon.mock(Search);
+  it('should be invalid if query is empty', done => {
+    searchValidate('query', done);
+  });
+
+  it('should have a static showRecent that returns recent queries', () => {
     const expectedDocs = [{ query: 'image', searched_at: 'time' }];
 
     SearchMock
@@ -25,16 +29,10 @@ describe('(model) Search', () => {
       .chain('exec')
       .resolves(expectedDocs);
 
-    Search.showRecent().then(res => {
-      SearchMock.verify();
-      SearchMock.restore();
-      expect(res).to.deep.equal(expectedDocs);
-      done();
-    });
+    expect(Search.showRecent()).to.eventually.deep.equal(expectedDocs);
   });
 
-  it('should handle an error on showRecent', done => {
-    var SearchMock = sinon.mock(Search);
+  it('should handle an error on showRecent', () => {
     SearchMock
       .expects('find').withArgs({})
       .chain('sort', '-searched_at')
@@ -42,11 +40,6 @@ describe('(model) Search', () => {
       .chain('exec')
       .rejects('error!');
 
-    Search.showRecent().then(err => {
-      SearchMock.verify();
-      SearchMock.restore();
-      expect(err.toString()).to.equal('Error: error!');
-      done();
-    });
+    expect(Search.showRecent()).to.eventually.deep.equal(new Error('error!'));
   });
 });

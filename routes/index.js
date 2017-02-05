@@ -1,3 +1,4 @@
+'use strict';
 
 const routes = app => {
   app.use(require('./home'));

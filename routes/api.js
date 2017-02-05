@@ -1,3 +1,4 @@
+'use strict';
 
 const router = require('express').Router();
 const onApi = require('../app/controllers/apiController');

@@ -1,3 +1,5 @@
+'use strict';
+
 const fetch = require('node-fetch');
 const mongoose = require('mongoose');
 const Search = mongoose.model('Search');

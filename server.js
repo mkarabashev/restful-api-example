@@ -1,3 +1,6 @@
+'use strict';
+
+require('./polyfills');
 const mongoose = require('mongoose');
 const app = require('./app');
 

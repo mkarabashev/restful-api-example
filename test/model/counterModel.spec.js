@@ -1,21 +1,18 @@
+'use strict';
+
 const Counter = require('../../app/model/counterModel');
+const modelValidate = require('../utils').modelValidate;
 
 describe('(model) Counter', () => {
-  let c;
+  let counterValidate;
 
-  before(() => c = new Counter());
+  before(() => counterValidate = modelValidate(new Counter()));
 
   it('should be invalid if _id is empty', done => {
-    c.validate(function (err) {
-      expect(err.errors._id).to.exist;
-      done();
-    });
+    counterValidate('_id', done);
   });
 
   it('should be invalid when count is empty', done => {
-    c.validate(function (err) {
-      expect(err.errors.count).to.exist;
-      done();
-    });
+    counterValidate('count', done);
   });
 });

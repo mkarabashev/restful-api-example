@@ -1,3 +1,5 @@
+'use strict';
+
 const headerParser = require('./headerParser');
 const timestamp = require('./timestamp');
 const url = require('./urlShortener');

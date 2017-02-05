@@ -2,11 +2,11 @@
   "name": "RESTful-API-services",
   "version": "1.0.0",
   "description": "RESTful API service",
-  "main": "index.js",
+  "main": "cluster.js",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "gulp mocha",
+    "test": "gulp mocha:lint",
     "test:watch": "gulp watch",
     "dev": "nodemon -r dotenv/config --debug server.js",
     "start": "forever -c \"node -r dotenv/config\" cluster.js"
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.13.1",
     "eslint-config-standard": "^6.2.1",

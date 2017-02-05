@@ -1,3 +1,5 @@
+'use strict';
+
 // this code glues together most of the api services
 // except for url redirects and file size checking
 const api = (req, res, services) => {

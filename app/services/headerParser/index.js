@@ -1,3 +1,4 @@
+'use strict';
 
 // this produces the whoami part of the json response
 module.exports = data => {

@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const useragent = require('express-useragent');
 const fs = require('fs');
@@ -9,7 +11,7 @@ module.exports = function setupServer () {
 
   // load the schema
   fs.readdirSync(path.join(__dirname, '/app/model')).forEach(file => {
-    if (/.js$/.test(file)) require(path.join(__dirname, 'app/model', file));
+    if (/.js$/.test(file)) require(path.join(__dirname, 'app', 'model', file));
   });
 
   // hide that the server is running on express
@@ -22,7 +24,7 @@ module.exports = function setupServer () {
   app.use(useragent.express());
 
   // provide API
-  app.set('views', path.join(__dirname, 'app/views'));
+  app.set('views', path.join(__dirname, 'app', 'views'));
   app.use(express.static('./public'));
   require('./routes')(app);
 
