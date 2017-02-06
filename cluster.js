@@ -1,5 +1,6 @@
 'use strict';
 
+require('newrelic');
 const cluster = require('cluster');
 const os = require('os');
 
