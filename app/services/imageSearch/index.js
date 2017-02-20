@@ -19,7 +19,7 @@ exports.imgSearch = data => {
   const query = String(data.img);
 
   // make sure offset is valid
-  const offset = data.offset > 0 ? offset : 0;
+  const offset = data.offset > 0 ? data.offset : 0;
 
   // fetch results from Bing
   return Promise.race([

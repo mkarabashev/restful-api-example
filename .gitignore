@@ -2,6 +2,7 @@
 node_modules/
 tmp/
 **/*.env
+newrelic_agent.log
 
 # Windows image file caches
 Thumbs.db
