@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.1.2",
+    "cors": "^2.8.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.2",
     "express": "^4.14.0",

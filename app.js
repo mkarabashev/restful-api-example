@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const cors = require('cors');
 const useragent = require('express-useragent');
 const fs = require('fs');
 const path = require('path');
@@ -22,6 +23,7 @@ module.exports = function setupServer () {
   app.set('view engine', 'ejs');
   app.set('json spaces', 2);
   app.use(useragent.express());
+  app.use(cors());
 
   // provide API
   app.set('views', path.join(__dirname, 'app', 'views'));
